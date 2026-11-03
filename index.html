@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Traceata — GPS trip logger for iPhone</title>
+<meta name="description" content="Traceata is an iOS GPS logger for personal trip memories. No account, no cloud, no feed. Your trips, kept privately on your phone.">
+<style>
+  :root{
+    --bg:#0c0f0d; --panel:#141815; --ink:#ece9e2; --muted:#a8a499;
+    --accent:#e86a2a; --line:#262b26; --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:860px;margin:0 auto;padding:0 22px}
+  header{padding:26px 0 0}
+  nav{display:flex;justify-content:space-between;align-items:center}
+  .brand{font-weight:700;letter-spacing:.14em;font-size:15px;text-transform:uppercase}
+  .brand span{color:var(--accent)}
+  nav a{color:var(--muted);text-decoration:none;font-size:14px;margin-left:22px}
+  nav a:hover{color:var(--ink)}
+  .hero{padding:84px 0 30px;text-align:left}
+  .hero h1{font-size:54px;line-height:1.05;margin:0 0 8px;font-weight:800;letter-spacing:-.01em}
+  .hero h1 .tray{color:var(--accent)}
+  .pron{color:var(--muted);font-size:15px;margin:0 0 22px}
+  .tagline{font-size:23px;line-height:1.4;margin:0 0 14px;max-width:620px}
+  .sub{color:var(--muted);font-size:17px;margin:0;max-width:600px}
+  .route{margin:44px 0 6px}
+  .pills{display:flex;flex-wrap:wrap;gap:10px;margin:30px 0 0}
+  .pill{border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-size:14px;color:var(--ink);background:var(--panel)}
+  .pill b{color:var(--accent);font-weight:700}
+  section{padding:38px 0}
+  h2{font-size:15px;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);margin:0 0 20px;font-weight:700}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media (max-width:640px){.grid{grid-template-columns:1fr}.hero h1{font-size:42px}}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:20px}
+  .card h3{margin:0 0 8px;font-size:17px}
+  .card p{margin:0;color:var(--muted);font-size:15px}
+  .promise{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:24px}
+  .promise p{margin:0 0 12px;font-size:17px}
+  .promise p:last-child{margin:0}
+  a{color:var(--accent)}
+  .status{border:1px dashed var(--line);border-radius:var(--radius);padding:20px 24px;color:var(--muted);font-size:16px}
+  .status b{color:var(--ink)}
+  footer{border-top:1px solid var(--line);margin-top:30px;padding:26px 0 44px;color:var(--muted);font-size:14px;
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+  footer a{color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <nav>
+      <div class="brand">Trace<span>ata</span></div>
+      <div>
+        <a href="privacy.html">Privacy</a>
+        <a href="#support">Support</a>
+      </div>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <h1>Your trips,<br>kept <span class="tray">privately</span><br>on your phone.</h1>
+    <p class="pron">Traceata — pronounced <i>TRAY-suh-tah</i>.</p>
+    <p class="tagline">An iOS GPS logger for personal trip memories.</p>
+    <p class="sub">Not a social fitness app. No account, no cloud, no feed — Traceata records where
+    you went and turns it into a trip page you keep: the route, the stats, and your photos and
+    notes pinned along the way.</p>
+
+    <svg class="route" width="100%" height="54" viewBox="0 0 860 54" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0,44 C120,40 180,14 300,20 C430,27 500,46 640,38 C740,32 800,18 860,22"
+        fill="none" stroke="#e86a2a" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="1 7"/>
+      <circle cx="4" cy="44" r="4" fill="#e86a2a"/>
+      <circle cx="856" cy="22" r="4" fill="#e86a2a"/>
+    </svg>
+
+    <div class="pills">
+      <div class="pill"><b>$8</b>&nbsp;one-time purchase</div>
+      <div class="pill"><b>100%</b>&nbsp;on-device</div>
+      <div class="pill"><b>Zero</b>&nbsp;data collected</div>
+      <div class="pill"><b>No</b>&nbsp;account, ever</div>
+    </div>
+  </div>
+
+  <section>
+    <h2>What it does</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Record anything</h3>
+        <p>Motorcycle rides, hikes, walks, paddling, sailing, flying, road trips — if it moves,
+        Traceata logs it, in the background, while your navigation app stays in front.</p>
+      </div>
+      <div class="card">
+        <h3>Trip pages, not feeds</h3>
+        <p>Every trip becomes a private journal page: speed-coloured route on the map, distance,
+        time, elevation, and your photos and notes pinned where they happened.</p>
+      </div>
+      <div class="card">
+        <h3>Relive it as video</h3>
+        <p>Trips render into shareable videos right on your iPhone — no upload, no server, no waiting.</p>
+      </div>
+      <div class="card">
+        <h3>Speaks the standard formats</h3>
+        <p>Import and export GPX and KML, so tracks from other apps and devices come with you —
+        and yours can always leave.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>The privacy promise</h2>
+    <div class="promise">
+      <p>Traceata has no servers. Your tracks, photos, and notes live only on your iPhone,
+      in the app's private storage. There is no account to create and nothing to sign in to.</p>
+      <p>We cannot see your trips, sell them, or lose them — we never have them.
+      Read the full <a href="privacy.html">privacy policy</a>.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Status</h2>
+    <div class="status"><b>Coming soon to the App Store.</b> Traceata is in final testing.
+    When it ships, it ships finished: one price, every feature, no subscription.</div>
+  </section>
+
+  <section id="support">
+    <h2>Support</h2>
+    <div class="promise">
+      <p>Questions, bug reports, or feature requests:<br>
+      <a href="mailto:support@traceata.com">support@traceata.com</a></p>
+    </div>
+  </section>
+
+  <footer>
+    <div>© 2026 Traceata</div>
+    <div><a href="privacy.html">Privacy Policy</a> &nbsp;·&nbsp; <a href="mailto:support@traceata.com">Support</a></div>
+  </footer>
+</div>
+</body>
+</html>
