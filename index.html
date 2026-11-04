@@ -2,137 +2,225 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Traceata — GPS trip logger for iPhone</title>
 <meta name="description" content="Traceata is an iOS GPS logger for personal trip memories. No account, no cloud, no feed. Your trips, kept privately on your phone.">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#121a2b" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f3eee3" media="(prefers-color-scheme: light)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&display=swap">
 <style>
+  /* Traceata design system: Night is the signature theme, Paper its daylight twin. */
   :root{
-    --bg:#0c0f0d; --panel:#141815; --ink:#ece9e2; --muted:#a8a499;
-    --accent:#e86a2a; --line:#262b26; --radius:14px;
+    --bg:#121a2b; --surface:#1b263d; --surface-raised:#24324e; --surface-sunken:#0c1220;
+    --line:#2c3a57; --line-strong:#6b7ca2; --contour:#24324f;
+    --ink:#faf7f0; --ink-muted:#aab4c8; --ink-faint:#8f9ab0;
+    --gold:#f0c26b; --gold-pressed:#d9a64c; --gold-ink:#f0c26b; --gold-soft:#3a3426; --on-gold:#16203a;
+    --coral:#ee6b4d; --cream:#faf7f0; --route-casing:#0c1220; --focus-ring:#f0c26b;
+    --shadow-card:0 1px 0 rgba(255,255,255,.04) inset, 0 6px 20px rgba(0,0,0,.28);
+    --font-serif:"New York", ui-serif, "Newsreader", Georgia, serif;
+    --font-sans:-apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --font-rounded:ui-rounded, "SF Pro Rounded", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    --radius-sm:10px; --radius-md:16px; --radius-lg:28px;
+    color-scheme:dark;
+  }
+  @media (prefers-color-scheme: light){
+    :root{
+      --bg:#f3eee3; --surface:#fbf8f1; --surface-raised:#ffffff; --surface-sunken:#ebe4d4;
+      --line:#e3dac8; --line-strong:#8a7f6b; --contour:#e3d8c2;
+      --ink:#16203a; --ink-muted:#4f5970; --ink-faint:#5f677b;
+      --gold:#f0c26b; --gold-pressed:#d9a64c; --gold-ink:#7f5208; --gold-soft:#fbecc8; --on-gold:#16203a;
+      --coral:#e0583a; --cream:#faf7f0; --route-casing:#16203a; --focus-ring:#16203a;
+      --shadow-card:0 1px 2px rgba(22,32,58,.06), 0 6px 20px rgba(22,32,58,.07);
+      color-scheme:light;
+    }
   }
   *{box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{margin:0;background:var(--bg);color:var(--ink);
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    line-height:1.55;-webkit-font-smoothing:antialiased}
-  .wrap{max-width:860px;margin:0 auto;padding:0 22px}
-  header{padding:26px 0 0}
-  nav{display:flex;justify-content:space-between;align-items:center}
-  .brand{font-weight:700;letter-spacing:.14em;font-size:15px;text-transform:uppercase}
-  .brand span{color:var(--accent)}
-  nav a{color:var(--muted);text-decoration:none;font-size:14px;margin-left:22px}
-  nav a:hover{color:var(--ink)}
-  .hero{padding:84px 0 30px;text-align:left}
-  .hero h1{font-size:54px;line-height:1.05;margin:0 0 8px;font-weight:800;letter-spacing:-.01em}
-  .hero h1 .tray{color:var(--accent)}
-  .pron{color:var(--muted);font-size:15px;margin:0 0 22px}
-  .tagline{font-size:23px;line-height:1.4;margin:0 0 14px;max-width:620px}
-  .sub{color:var(--muted);font-size:17px;margin:0;max-width:600px}
-  .route{margin:44px 0 6px}
-  .pills{display:flex;flex-wrap:wrap;gap:10px;margin:30px 0 0}
-  .pill{border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-size:14px;color:var(--ink);background:var(--panel)}
-  .pill b{color:var(--accent);font-weight:700}
-  section{padding:38px 0}
-  h2{font-size:15px;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);margin:0 0 20px;font-weight:700}
-  .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-  @media (max-width:640px){.grid{grid-template-columns:1fr}.hero h1{font-size:42px}}
-  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:20px}
-  .card h3{margin:0 0 8px;font-size:17px}
-  .card p{margin:0;color:var(--muted);font-size:15px}
-  .promise{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:24px}
-  .promise p{margin:0 0 12px;font-size:17px}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-sans);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  a{color:var(--gold-ink);text-underline-offset:3px}
+  a:focus-visible,.btn:focus-visible{outline:2px solid var(--focus-ring);outline-offset:2px;border-radius:6px}
+  .wrap{max-width:920px;margin:0 auto;padding-left:max(20px, env(safe-area-inset-left));padding-right:max(20px, env(safe-area-inset-right))}
+
+  header{padding-top:max(24px, env(safe-area-inset-top))}
+  nav{display:flex;justify-content:space-between;align-items:center;gap:16px;min-height:48px}
+  .brand{font-family:var(--font-serif);font-weight:600;font-size:24px;letter-spacing:-.01em;color:var(--ink);text-decoration:none}
+  .navlinks{display:flex;gap:4px}
+  .navlinks a{color:var(--ink-muted);text-decoration:none;font-size:15px;padding:12px 10px;min-height:44px;display:inline-flex;align-items:center}
+  .navlinks a:hover{color:var(--ink)}
+
+  .hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:40px;align-items:center;padding:56px 0 24px}
+  .hero h1{font-family:var(--font-serif);font-weight:600;font-size:clamp(40px, 6.4vw, 64px);line-height:1.02;letter-spacing:-.02em;margin:0 0 14px;text-wrap:balance}
+  .pron{color:var(--ink-muted);font-size:15px;margin:0 0 22px}
+  .pron i{font-family:var(--font-serif)}
+  .tagline{font-size:21px;line-height:1.45;margin:0 0 12px;max-width:34ch}
+  .sub{color:var(--ink-muted);margin:0;max-width:58ch}
+  .art{position:relative;aspect-ratio:1/1;max-width:100%;border-radius:var(--radius-lg);background:var(--surface-sunken);overflow:hidden;box-shadow:var(--shadow-card)}
+  .art svg{display:block;width:100%;height:100%}
+
+  .chips{display:flex;flex-wrap:wrap;gap:10px;margin:32px 0 0;padding:0;list-style:none}
+  .chip{display:inline-flex;align-items:baseline;gap:6px;border-radius:999px;padding:9px 16px;font-size:15px;background:var(--surface-raised);color:var(--ink)}
+  .chip b{font-family:var(--font-rounded);font-weight:700;color:var(--gold-ink);font-variant-numeric:tabular-nums}
+
+  section{padding:40px 0}
+  h2{font-size:13px;line-height:18px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-muted);margin:0 0 18px;font-weight:600}
+  .grid{display:grid;grid-template-columns:repeat(2, minmax(0,1fr));gap:16px}
+  .card{background:var(--surface);border-radius:var(--radius-md);padding:20px;box-shadow:var(--shadow-card);display:flex;gap:16px;align-items:flex-start}
+  .tile{flex:none;width:44px;height:44px;border-radius:12px;background:var(--gold-soft);color:var(--gold-ink);display:grid;place-items:center}
+  .tile svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .card h3{margin:0 0 6px;font-family:var(--font-serif);font-weight:600;font-size:21px;line-height:1.25}
+  .card p{margin:0;color:var(--ink-muted);font-size:16px}
+
+  .promise{background:var(--surface);border-radius:var(--radius-md);padding:24px;box-shadow:var(--shadow-card)}
+  .promise p{margin:0 0 12px;max-width:62ch}
   .promise p:last-child{margin:0}
-  a{color:var(--accent)}
-  .status{border:1px dashed var(--line);border-radius:var(--radius);padding:20px 24px;color:var(--muted);font-size:16px}
+  .lead{font-family:var(--font-serif);font-size:24px;line-height:1.35;color:var(--ink)}
+  .status{display:flex;gap:14px;align-items:flex-start;border:1px dashed var(--line-strong);border-radius:var(--radius-md);padding:20px 24px;color:var(--ink-muted)}
   .status b{color:var(--ink)}
-  footer{border-top:1px solid var(--line);margin-top:30px;padding:26px 0 44px;color:var(--muted);font-size:14px;
-    display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
-  footer a{color:var(--muted)}
+  .flag{flex:none;margin-top:3px}
+  .support{display:flex;flex-wrap:wrap;gap:16px 24px;align-items:center;justify-content:space-between}
+  .support p{margin:0}
+  .btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;border-radius:999px;background:var(--gold);color:var(--on-gold);font-weight:600;font-size:17px;text-decoration:none;transition:transform .12s ease}
+  .btn:hover{background:var(--gold-pressed)}
+  .btn:active{transform:scale(.97)}
+  .mail{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:15px;color:var(--ink-muted)}
+
+  footer{border-top:.5px solid var(--line);margin-top:24px;padding:24px 0 max(44px, env(safe-area-inset-bottom));color:var(--ink-muted);font-size:14px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+  footer a{color:var(--ink-muted)}
+  footer a:hover{color:var(--ink)}
+
+  @media (max-width:720px){
+    .hero{grid-template-columns:1fr;gap:28px;padding-top:36px}
+    .art{max-width:420px}
+    .grid{grid-template-columns:1fr}
+  }
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
-    <nav>
-      <div class="brand">Trace<span>ata</span></div>
-      <div>
+    <nav aria-label="Main">
+      <a class="brand" href="index.html">Traceata</a>
+      <div class="navlinks">
         <a href="privacy.html">Privacy</a>
         <a href="#support">Support</a>
       </div>
     </nav>
   </header>
 
-  <div class="hero">
-    <h1>Your trips,<br>kept <span class="tray">privately</span><br>on your phone.</h1>
-    <p class="pron">Traceata — pronounced <i>TRAY-suh-tah</i>.</p>
-    <p class="tagline">An iOS GPS logger for personal trip memories.</p>
-    <p class="sub">Not a social fitness app. No account, no cloud, no feed — Traceata records where
-    you went and turns it into a trip page you keep: the route, the stats, and your photos and
-    notes pinned along the way.</p>
-
-    <svg class="route" width="100%" height="54" viewBox="0 0 860 54" preserveAspectRatio="none" aria-hidden="true">
-      <path d="M0,44 C120,40 180,14 300,20 C430,27 500,46 640,38 C740,32 800,18 860,22"
-        fill="none" stroke="#e86a2a" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="1 7"/>
-      <circle cx="4" cy="44" r="4" fill="#e86a2a"/>
-      <circle cx="856" cy="22" r="4" fill="#e86a2a"/>
-    </svg>
-
-    <div class="pills">
-      <div class="pill"><b>$8</b>&nbsp;one-time purchase</div>
-      <div class="pill"><b>100%</b>&nbsp;on-device</div>
-      <div class="pill"><b>Zero</b>&nbsp;data collected</div>
-      <div class="pill"><b>No</b>&nbsp;account, ever</div>
-    </div>
-  </div>
-
-  <section>
-    <h2>What it does</h2>
-    <div class="grid">
-      <div class="card">
-        <h3>Record anything</h3>
-        <p>Motorcycle rides, hikes, walks, paddling, sailing, flying, road trips — if it moves,
-        Traceata logs it, in the background, while your navigation app stays in front.</p>
+  <main>
+    <div class="hero">
+      <div>
+        <h1>Your trips, kept privately on your phone.</h1>
+        <p class="pron">Traceata is pronounced <i>TRAY-suh-tah</i>.</p>
+        <p class="tagline">An iOS GPS logger for personal trip memories.</p>
+        <p class="sub">Not a social fitness app. No account, no cloud, no feed. Traceata records where
+        you went and turns it into a trip page you keep: the route, the stats, and your photos and
+        notes pinned along the way.</p>
       </div>
-      <div class="card">
-        <h3>Trip pages, not feeds</h3>
-        <p>Every trip becomes a private journal page: speed-coloured route on the map, distance,
-        time, elevation, and your photos and notes pinned where they happened.</p>
-      </div>
-      <div class="card">
-        <h3>Relive it as video</h3>
-        <p>Trips render into shareable videos right on your iPhone — no upload, no server, no waiting.</p>
-      </div>
-      <div class="card">
-        <h3>Speaks the standard formats</h3>
-        <p>Import and export GPX and KML, so tracks from other apps and devices come with you —
-        and yours can always leave.</p>
+
+      <div class="art" aria-hidden="true">
+        <svg viewBox="0 0 400 400">
+          <g fill="none" stroke="var(--contour)" stroke-width="2">
+            <ellipse cx="300" cy="120" rx="40" ry="28"/>
+            <ellipse cx="300" cy="120" rx="80" ry="58"/>
+            <ellipse cx="300" cy="120" rx="124" ry="92"/>
+            <ellipse cx="300" cy="120" rx="170" ry="128"/>
+            <ellipse cx="300" cy="120" rx="220" ry="168"/>
+            <ellipse cx="300" cy="120" rx="274" ry="212"/>
+            <ellipse cx="80" cy="360" rx="60" ry="36"/>
+            <ellipse cx="80" cy="360" rx="110" ry="70"/>
+          </g>
+          <path d="M70 330 C110 300 96 250 140 228 S220 230 236 190 S250 120 300 112" fill="none" stroke="var(--route-casing)" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M70 330 C110 300 96 250 140 228 S220 230 236 190 S250 120 300 112" fill="none" stroke="var(--gold)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="70" cy="330" r="11" fill="var(--surface-sunken)" stroke="var(--cream)" stroke-width="5"/>
+          <g transform="translate(300 112)">
+            <path d="M0 0 V-46" stroke="var(--cream)" stroke-width="4" stroke-linecap="round"/>
+            <path d="M2 -46 H30 L24 -37 L30 -28 H2 Z" fill="var(--coral)"/>
+            <circle cx="0" cy="0" r="6" fill="var(--cream)"/>
+          </g>
+        </svg>
       </div>
     </div>
-  </section>
 
-  <section>
-    <h2>The privacy promise</h2>
-    <div class="promise">
-      <p>Traceata has no servers. Your tracks, photos, and notes live only on your iPhone,
-      in the app's private storage. There is no account to create and nothing to sign in to.</p>
-      <p>We cannot see your trips, sell them, or lose them — we never have them.
-      Read the full <a href="privacy.html">privacy policy</a>.</p>
-    </div>
-  </section>
+    <ul class="chips" aria-label="At a glance">
+      <li class="chip"><b>$8</b> one-time purchase</li>
+      <li class="chip"><b>100%</b> on-device</li>
+      <li class="chip"><b>Zero</b> data collected</li>
+      <li class="chip"><b>No</b> account, ever</li>
+    </ul>
 
-  <section>
-    <h2>Status</h2>
-    <div class="status"><b>Coming soon to the App Store.</b> Traceata is in final testing.
-    When it ships, it ships finished: one price, every feature, no subscription.</div>
-  </section>
+    <section aria-labelledby="what">
+      <h2 id="what">What it does</h2>
+      <div class="grid">
+        <div class="card">
+          <span class="tile" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3.5" fill="currentColor" stroke="none"/></svg></span>
+          <div>
+            <h3>Record anything</h3>
+            <p>Motorcycle rides, hikes, walks, paddling, sailing, flying, road trips. If it moves,
+            Traceata logs it, in the background, while your navigation app stays in front.</p>
+          </div>
+        </div>
+        <div class="card">
+          <span class="tile" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 19c3-1 2-6 6-7s5-5 8-7"/><circle cx="5" cy="19" r="1.8"/><path d="M19 5v-1"/></svg></span>
+          <div>
+            <h3>Trip pages, not feeds</h3>
+            <p>Every trip becomes a private journal page: speed-coloured route on the map, distance,
+            time, elevation, and your photos and notes pinned where they happened.</p>
+          </div>
+        </div>
+        <div class="card">
+          <span class="tile" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3.5" y="5.5" width="17" height="13" rx="2.5"/><path d="M10.5 9.5v5l4-2.5z" fill="currentColor"/></svg></span>
+          <div>
+            <h3>Relive it as video</h3>
+            <p>Trips render into shareable videos right on your iPhone. No upload, no server, no waiting.</p>
+          </div>
+        </div>
+        <div class="card">
+          <span class="tile" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 4h7l4 4v12H7z"/><path d="M14 4v4h4"/><path d="M10 14h5M10 17h3"/></svg></span>
+          <div>
+            <h3>Speaks the standard formats</h3>
+            <p>Import and export GPX and KML, so tracks from other apps and devices come with you,
+            and yours can always leave.</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-  <section id="support">
-    <h2>Support</h2>
-    <div class="promise">
-      <p>Questions, bug reports, or feature requests:<br>
-      <a href="mailto:support@traceata.com">support@traceata.com</a></p>
-    </div>
-  </section>
+    <section aria-labelledby="promise">
+      <h2 id="promise">The privacy promise</h2>
+      <div class="promise">
+        <p class="lead">Traceata has no servers.</p>
+        <p>Your tracks, photos, and notes live only on your iPhone, in the app's private storage.
+        There is no account to create and nothing to sign in to.</p>
+        <p>We cannot see your trips, sell them, or lose them. We never have them.
+        Read the full <a href="privacy.html">privacy policy</a>.</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="status">
+      <h2 id="status">Status</h2>
+      <div class="status">
+        <svg class="flag" width="18" height="22" viewBox="0 0 18 22" aria-hidden="true"><path d="M2 1v20" stroke="var(--ink-muted)" stroke-width="2" stroke-linecap="round"/><path d="M3 1h13l-3 4 3 4H3z" fill="var(--coral)"/></svg>
+        <p style="margin:0"><b>Coming soon to the App Store.</b> Traceata is in final testing.
+        When it ships, it ships finished: one price, every feature, no subscription.</p>
+      </div>
+    </section>
+
+    <section id="support" aria-labelledby="supporth">
+      <h2 id="supporth">Support</h2>
+      <div class="promise support">
+        <div>
+          <p>Questions, bug reports, or feature requests.</p>
+          <p class="mail">support@traceata.com</p>
+        </div>
+        <a class="btn" href="mailto:support@traceata.com">Email support</a>
+      </div>
+    </section>
+  </main>
 
   <footer>
     <div>© 2026 Traceata</div>
