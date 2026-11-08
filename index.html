@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Traceata — GPS trip logger for iPhone</title>
-<meta name="description" content="Traceata is an iOS GPS logger for personal trip memories. No account, no cloud, no feed. Your trips, kept privately on your phone.">
+<meta name="description" content="Traceata is an iOS GPS logger for personal trip memories. No account, no cloud, no feed. Your trips, kept privately on your phone. Free to try.">
 <meta name="color-scheme" content="dark light">
 <meta name="theme-color" content="#121a2b" media="(prefers-color-scheme: dark)">
 <meta name="theme-color" content="#f3eee3" media="(prefers-color-scheme: light)">
@@ -98,13 +98,17 @@
     .grid{grid-template-columns:1fr}
   }
 
-  /* Screenshot carousel: moves left to right, holds each screenshot 0.5 s, fogs the side ones. */
+  /* Screenshot carousel: drifts right to left, holds each screenshot, fogs the side ones.
+     Swipe, drag, trackpad-scroll or arrow keys take over; auto-play resumes after 10 s idle. */
   body{overflow-x:clip}
   .shots h2{margin-bottom:22px}
-  .carousel{position:relative;width:100vw;margin-left:calc(50% - 50vw);overflow:hidden;--shot-w:clamp(210px, 58vw, 260px);height:calc(var(--shot-w) * 844 / 390 + 8px)}
+  .carousel{position:relative;width:100vw;margin-left:calc(50% - 50vw);overflow:hidden;--shot-w:clamp(210px, 58vw, 260px);height:calc(var(--shot-w) * 844 / 390 + 8px);
+    touch-action:pan-y;overscroll-behavior-x:contain;cursor:grab;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent;outline:none}
+  .carousel.dragging{cursor:grabbing}
+  .carousel:focus-visible .shot.active{outline:2px solid var(--focus-ring);outline-offset:3px}
   .track{position:absolute;inset:0}
   .shot{position:absolute;top:0;left:0;margin:0;width:var(--shot-w);aspect-ratio:390/844;border-radius:32px;overflow:hidden;background:var(--surface);box-shadow:var(--shadow-card);transform-origin:50% 50%;will-change:transform}
-  .shot svg{display:block;width:100%;height:100%}
+  .shot img{display:block;width:100%;height:100%;object-fit:cover;pointer-events:none;-webkit-user-drag:none}
   .shot::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:1;transition:opacity .7s ease;
     background:linear-gradient(to right, color-mix(in srgb, var(--bg) 40%, transparent), color-mix(in srgb, var(--bg) 92%, transparent))}
   .shot.left::after{background:linear-gradient(to left, color-mix(in srgb, var(--bg) 40%, transparent), color-mix(in srgb, var(--bg) 92%, transparent))}
@@ -163,7 +167,8 @@
     </div>
 
     <ul class="chips" aria-label="At a glance">
-      <li class="chip"><b>$8</b> one-time purchase</li>
+      <li class="chip"><b>Free</b> to try: 14 days or 5 trips</li>
+      <li class="chip"><b>$7.99</b> one-time unlock</li>
       <li class="chip"><b>100%</b> on-device</li>
       <li class="chip"><b>Zero</b> data collected</li>
       <li class="chip"><b>No</b> account, ever</li>
@@ -176,8 +181,10 @@
           <span class="tile" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3.5" fill="currentColor" stroke="none"/></svg></span>
           <div>
             <h3>Record anything</h3>
-            <p>Motorcycle rides, hikes, walks, paddling, sailing, flying, road trips. If it moves,
-            Traceata logs it, in the background, while your navigation app stays in front.</p>
+            <p>Motorcycle rides, SUP mornings, canoe days, hikes, walks, sailing, balloon flights,
+            road trips — and every journey where you're the passenger: car, train, boat, or plane.
+            If it moves, Traceata logs it, in the background, while your navigation app stays in front.</p>
+            <p style="margin-top:12px">Don't see your thing? Create your own activity — as many as you want.</p>
           </div>
         </div>
         <div class="card">
@@ -203,6 +210,46 @@
             and yours can always leave.</p>
           </div>
         </div>
+        <div class="card">
+          <span class="tile" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="15" rx="3"/><path d="M12 15l3-4"/><circle cx="12" cy="15" r="1" fill="currentColor"/></svg></span>
+          <div>
+            <h3>Live while you move</h3>
+            <p>Swipe between speed, time, route, compass and trail widgets while recording. Splits are
+            spoken aloud, and the Lock Screen and Dynamic Island keep your trip in view.</p>
+          </div>
+        </div>
+        <div class="card">
+          <span class="tile" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 18l4-6 3 3 5-8 4 5"/><path d="M4 20h16"/></svg></span>
+          <div>
+            <h3>Look closer</h3>
+            <p>Touch the elevation and speed charts to read the exact value and time at that point.
+            Open any trip photo full screen and zoom in.</p>
+          </div>
+        </div>
+        <div class="card">
+          <span class="tile" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s-6-5.2-6-10a6 6 0 0 1 12 0c0 4.8-6 10-6 10z"/><circle cx="12" cy="11" r="2.2"/></svg></span>
+          <div>
+            <h3>Your places</h3>
+            <p>Save the places that matter. Trips get named after them, and Stats shows where you go most.</p>
+          </div>
+        </div>
+        <div class="card">
+          <span class="tile" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 4v10"/><path d="M8 10l4 4 4-4"/><path d="M5 18h14"/></svg></span>
+          <div>
+            <h3>Backups you control</h3>
+            <p>Back up and restore all your trips as a file, manually or automatically. Share a single
+            trip as a Traceata file, a PDF report, or an image.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="langs">
+      <h2 id="langs">Languages</h2>
+      <div class="promise">
+        <p>Traceata is being translated for launch into <b>English, German, French, Spanish, Italian
+        and Brazilian Portuguese</b>, with a Spanish edition for both Spain and Latin America. It follows
+        your iPhone's language, so there's nothing to set up.</p>
       </div>
     </section>
 
@@ -219,192 +266,19 @@
 
     <section class="shots" aria-labelledby="shotsh">
       <h2 id="shotsh">What a trip looks like</h2>
-      <div class="carousel" role="region" aria-roledescription="carousel" aria-label="Traceata screenshots">
+      <div class="carousel" id="carousel" role="region" aria-roledescription="carousel" aria-label="Traceata screenshots. Use the left and right arrow keys to move between them." tabindex="0">
         <div class="track" id="track">
-        <figure class="shot"><svg viewBox="0 0 390 844" width="390" height="844" role="img" aria-label="Trip page for a motorcycle ride from Lake Geneva to Gruyères, with a speed-coloured route on the map and the trip's stats">
-<rect width="390" height="844" fill="#16203a"/>
-<path d="M0 0H390V150C330 190 260 170 200 200S90 260 0 250Z" fill="#14294a"/>
-<path d="M250 420C300 400 360 410 390 430V560H240C220 500 220 440 250 420Z" fill="#1a2c31"/>
-<g fill="none" stroke="#24324f" stroke-width="1.5">
-<ellipse cx="300" cy="360" rx="40" ry="26"/><ellipse cx="300" cy="360" rx="80" ry="54"/><ellipse cx="300" cy="360" rx="124" ry="86"/><ellipse cx="300" cy="360" rx="170" ry="120"/>
-</g>
-<g fill="none" stroke="#2b3a58" stroke-linecap="round">
-<path d="M0 300C80 290 150 330 230 310S350 260 390 270" stroke-width="6"/>
-<path d="M120 0C130 80 100 160 140 230S200 380 180 470" stroke-width="4"/>
-</g>
-<g fill="none" stroke-linecap="round" stroke-linejoin="round">
-<path d="M62 214C90 240 110 262 150 270S210 300 232 330 270 380 300 392" stroke="#0c1220" stroke-width="10"/>
-<path d="M62 214C90 240 110 262 150 270" stroke="#7fd6ad" stroke-width="5"/>
-<path d="M150 270C190 278 210 300 232 330" stroke="#f0c26b" stroke-width="5"/>
-<path d="M232 330C248 352 262 372 280 384" stroke="#ee6b4d" stroke-width="5"/>
-<path d="M280 384C287 388 294 391 300 392" stroke="#7fd6ad" stroke-width="5"/>
-</g>
-<circle cx="62" cy="214" r="8" fill="#16203a" stroke="#faf7f0" stroke-width="3.5"/>
-<path d="M300 392V362" stroke="#faf7f0" stroke-width="3" stroke-linecap="round"/>
-<path d="M301.5 362H320L316 368L320 374H301.5Z" fill="#ee6b4d"/>
-<circle cx="300" cy="392" r="4.5" fill="#faf7f0"/>
-<text x="74" y="200" font-family="-apple-system, 'SF Pro Text', system-ui, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#aab4c8">Vevey</text>
-<text x="262" y="414" font-family="-apple-system, 'SF Pro Text', system-ui, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#aab4c8">Gruyères</text>
-<circle cx="38" cy="78" r="22" fill="#1b263d" fill-opacity="0.82"/>
-<path d="M41 70L33 78L41 86" fill="none" stroke="#faf7f0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-<circle cx="352" cy="78" r="22" fill="#1b263d" fill-opacity="0.82"/>
-<path d="M352 68V84M346 73L352 67L358 73M345 78V88H359V78" fill="none" stroke="#faf7f0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<rect x="0" y="456" width="390" height="400" rx="28" fill="#121a2b"/>
-<rect x="177" y="464" width="36" height="5" rx="2.5" fill="#6b7ca2" fill-opacity="0.6"/>
-<text x="20" y="508" font-family="'New York', ui-serif, Newsreader, Georgia, serif" font-size="26" font-weight="600" fill="#faf7f0">Lake Geneva to Gruyères</text>
-<text x="20" y="532" font-family="-apple-system, 'SF Pro Text', system-ui, Helvetica, Arial, sans-serif" font-size="15" fill="#aab4c8">Sat 12 Sep 2026 · Motorcycle</text>
-<g font-family="ui-rounded, 'SF Pro Rounded', -apple-system, system-ui, sans-serif">
-<rect x="20" y="552" width="169" height="70" rx="16" fill="#1b263d"/>
-<text x="36" y="576" font-size="13" fill="#aab4c8">Distance</text>
-<text x="36" y="606" font-size="24" font-weight="600" fill="#faf7f0">128.4<tspan font-size="15" fill="#aab4c8" font-weight="500"> km</tspan></text>
-<rect x="201" y="552" width="169" height="70" rx="16" fill="#1b263d"/>
-<text x="217" y="576" font-size="13" fill="#aab4c8">Moving time</text>
-<text x="217" y="606" font-size="24" font-weight="600" fill="#faf7f0">3:42<tspan font-size="15" fill="#aab4c8" font-weight="500"> h</tspan></text>
-<rect x="20" y="634" width="169" height="70" rx="16" fill="#1b263d"/>
-<text x="36" y="658" font-size="13" fill="#aab4c8">Avg speed</text>
-<text x="36" y="688" font-size="24" font-weight="600" fill="#faf7f0">52<tspan font-size="15" fill="#aab4c8" font-weight="500"> km/h</tspan></text>
-<rect x="201" y="634" width="169" height="70" rx="16" fill="#1b263d"/>
-<text x="217" y="658" font-size="13" fill="#aab4c8">Elevation gain</text>
-<text x="217" y="688" font-size="24" font-weight="600" fill="#faf7f0">2,140<tspan font-size="15" fill="#aab4c8" font-weight="500"> m</tspan></text>
-</g>
-<rect x="20" y="718" width="350" height="96" rx="16" fill="#0c1220"/>
-<text x="36" y="744" font-family="-apple-system, 'SF Pro Text', system-ui, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" letter-spacing="0.8" fill="#aab4c8">MEMORABLE</text>
-<text font-family="'New York', ui-serif, Newsreader, Georgia, serif" font-size="17" font-style="italic" fill="#faf7f0"><tspan x="36" y="770">Fog lifted at the Col des Mosses and</tspan><tspan x="36" y="794">the whole valley opened up.</tspan></text>
-</svg></figure>
-        <figure class="shot"><svg viewBox="0 0 390 844" width="390" height="844" role="img" aria-label="Trips list with a ride, a hike, a kayak paddle and a flight from September 2026">
-<rect width="390" height="844" fill="#121a2b"/>
-<text x="20" y="98" font-family="'New York', ui-serif, Newsreader, Georgia, serif" font-size="34" font-weight="600" fill="#faf7f0">Trips</text>
-<rect x="20" y="116" width="350" height="40" rx="10" fill="#1b263d"/>
-<circle cx="40" cy="135" r="6" fill="none" stroke="#8f9ab0" stroke-width="2"/>
-<path d="M44.5 139.5L49 144" stroke="#8f9ab0" stroke-width="2" stroke-linecap="round"/>
-<text x="58" y="141" font-family="-apple-system, 'SF Pro Text', system-ui, Helvetica, Arial, sans-serif" font-size="16" fill="#8f9ab0">Search trips</text>
-<g font-family="-apple-system, 'SF Pro Text', system-ui, Helvetica, Arial, sans-serif" font-size="14" font-weight="600">
-<rect x="20" y="168" width="48" height="32" rx="16" fill="#f0c26b"/><text x="44" y="189" text-anchor="middle" fill="#16203a">All</text>
-<rect x="76" y="168" width="100" height="32" rx="16" fill="#24324e"/><text x="126" y="189" text-anchor="middle" fill="#faf7f0">Motorcycle</text>
-<rect x="184" y="168" width="58" height="32" rx="16" fill="#24324e"/><text x="213" y="189" text-anchor="middle" fill="#faf7f0">Hike</text>
-<rect x="250" y="168" width="64" height="32" rx="16" fill="#24324e"/><text x="282" y="189" text-anchor="middle" fill="#faf7f0">Kayak</text>
-</g>
-<text x="20" y="232" font-family="-apple-system, 'SF Pro Text', system-ui, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" letter-spacing="0.8" fill="#aab4c8">SEPTEMBER 2026</text>
-<rect x="20" y="244" width="350" height="250" rx="16" fill="#1b263d"/>
-<rect x="20" y="244" width="350" height="164" rx="16" fill="#16203a"/>
-<rect x="20" y="392" width="350" height="16" fill="#16203a"/>
-<path d="M20 260A16 16 0 0 1 36 244H230C200 290 140 300 80 330S30 380 20 390Z" fill="#14294a"/>
-<g fill="none" stroke="#24324f" stroke-width="1.5"><ellipse cx="290" cy="320" rx="40" ry="26"/><ellipse cx="290" cy="320" rx="80" ry="52"/><ellipse cx="290" cy="320" rx="120" ry="80"/></g>
-<path d="M70 300C110 320 150 330 190 322S260 340 310 372" fill="none" stroke="#0c1220" stroke-width="9" stroke-linecap="round"/>
-<path d="M70 300C110 320 150 330 190 322S260 340 310 372" fill="none" stroke="#f0c26b" stroke-width="5" stroke-linecap="round"/>
-<circle cx="70" cy="300" r="6" fill="#16203a" stroke="#faf7f0" stroke-width="3"/>
-<circle cx="310" cy="372" r="5" fill="#ee6b4d"/>
-<text x="36" y="440" font-family="'New York', ui-serif, Newsreader, Georgia, serif" font-size="21" font-weight="600" fill="#faf7f0">Lake Geneva to Gruyères</text>
-<text x="36" y="466" font-family="-apple-system, 'SF Pro Text', system-ui, Helvetica, Arial, sans-serif" font-size="14" fill="#aab4c8">Sat 12 Sep · Motorcycle</text>
-<text x="354" y="466" text-anchor="end" font-family="ui-rounded, 'SF Pro Rounded', -apple-system, system-ui, sans-serif" font-size="16" font-weight="600" fill="#faf7f0">128.4 km</text>
-<g font-family="-apple-system, 'SF Pro Text', system-ui, Helvetica, Arial, sans-serif">
-<rect x="20" y="508" width="350" height="88" rx="16" fill="#1b263d"/>
-<rect x="32" y="520" width="64" height="64" rx="10" fill="#0c1220"/>
-<path d="M42 572C52 560 50 546 62 540S78 532 86 528" fill="none" stroke="#f0c26b" stroke-width="3" stroke-linecap="round"/>
-<text x="110" y="546" font-family="'New York', ui-serif, Newsreader, Georgia, serif" font-size="18" font-weight="600" fill="#faf7f0">Grindelwald to Bachalpsee</text>
-<text x="110" y="570" font-size="14" fill="#aab4c8">Sun 13 Sep · Hike</text>
-<text x="354" y="570" text-anchor="end" font-family="ui-rounded, 'SF Pro Rounded', -apple-system, system-ui, sans-serif" font-size="15" font-weight="600" fill="#faf7f0">12.4 km</text>
-<rect x="20" y="606" width="350" height="88" rx="16" fill="#1b263d"/>
-<rect x="32" y="618" width="64" height="64" rx="10" fill="#0c1220"/>
-<path d="M44 664C54 640 76 636 84 650S62 674 50 660" fill="none" stroke="#f0c26b" stroke-width="3" stroke-linecap="round"/>
-<text x="110" y="644" font-family="'New York', ui-serif, Newsreader, Georgia, serif" font-size="18" font-weight="600" fill="#faf7f0">Morning paddle, Annecy</text>
-<text x="110" y="668" font-size="14" fill="#aab4c8">Sat 5 Sep · Kayak</text>
-<text x="354" y="668" text-anchor="end" font-family="ui-rounded, 'SF Pro Rounded', -apple-system, system-ui, sans-serif" font-size="15" font-weight="600" fill="#faf7f0">8.6 km</text>
-<rect x="20" y="704" width="350" height="88" rx="16" fill="#1b263d"/>
-<rect x="32" y="716" width="64" height="64" rx="10" fill="#0c1220"/>
-<path d="M42 770Q64 712 88 726" fill="none" stroke="#f0c26b" stroke-width="3" stroke-linecap="round" stroke-dasharray="1 6"/>
-<text x="110" y="742" font-family="'New York', ui-serif, Newsreader, Georgia, serif" font-size="18" font-weight="600" fill="#faf7f0">Zurich to Lisbon</text>
-<text x="110" y="766" font-size="14" fill="#aab4c8">Tue 1 Sep · Flight</text>
-<text x="354" y="766" text-anchor="end" font-family="ui-rounded, 'SF Pro Rounded', -apple-system, system-ui, sans-serif" font-size="15" font-weight="600" fill="#faf7f0">1,722 km</text>
-</g>
-<rect x="0" y="800" width="390" height="44" fill="#1b263d"/>
-<g fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-<path d="M42 830C50 818 58 822 66 812" stroke="#f0c26b"/><circle cx="42" cy="830" r="2.5" fill="#f0c26b" stroke="none"/><circle cx="66" cy="812" r="2.5" fill="#f0c26b" stroke="none"/>
-<circle cx="150" cy="822" r="9" stroke="#aab4c8"/><circle cx="150" cy="822" r="4" fill="#aab4c8" stroke="none"/>
-<path d="M240 832V812M232 820L240 812L248 820" stroke="#aab4c8"/>
-<circle cx="340" cy="822" r="8" stroke="#aab4c8"/><circle cx="340" cy="822" r="3" stroke="#aab4c8"/>
-</g>
-</svg></figure>
-        <figure class="shot"><svg viewBox="0 0 390 844" width="390" height="844" role="img" aria-label="Trip story for a hike from Grindelwald to Bachalpsee, with a hero photo, the walker's own note and a chapter with a lake photo">
-<rect width="390" height="844" fill="#121a2b"/>
-<rect width="390" height="300" fill="#8fb3d9"/>
-<circle cx="300" cy="64" r="20" fill="#fff6dc" fill-opacity="0.85"/>
-<path d="M0 170L60 112L98 140L160 70L214 128L262 96L330 150L390 118V300H0Z" fill="#e9eef4"/>
-<path d="M160 70L176 92L168 98L186 112L214 128L196 128L174 104L160 112L146 96Z" fill="#c9d3de"/>
-<path d="M0 214L50 182L110 204L170 170L240 200L300 176L390 210V300H0Z" fill="#7d8ea3"/>
-<path d="M0 248L70 232L140 246L220 230L300 244L390 236V300H0Z" fill="#5d7a5a"/>
-<rect x="0" y="262" width="390" height="38" fill="#3f7fa6"/>
-<rect x="40" y="272" width="120" height="1.5" fill="#ffffff" fill-opacity="0.5"/>
-<rect x="210" y="282" width="90" height="1.5" fill="#ffffff" fill-opacity="0.4"/>
-<circle cx="38" cy="78" r="22" fill="#1b263d" fill-opacity="0.82"/>
-<path d="M41 70L33 78L41 86" fill="none" stroke="#faf7f0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="20" y="342" font-family="'New York', ui-serif, Newsreader, Georgia, serif" font-size="26" font-weight="600" fill="#faf7f0">Grindelwald to Bachalpsee</text>
-<text x="20" y="366" font-family="-apple-system, 'SF Pro Text', system-ui, Helvetica, Arial, sans-serif" font-size="15" fill="#aab4c8">Sun 13 Sep 2026 · Hike · 12.4 km</text>
-<text font-family="'New York', ui-serif, Newsreader, Georgia, serif" font-size="17" font-style="italic" fill="#faf7f0"><tspan x="20" y="400">Early start to beat the clouds. Worth</tspan><tspan x="20" y="424">every switchback.</tspan></text>
-<rect x="20" y="446" width="350" height="0.5" fill="#2c3a57"/>
-<g font-family="-apple-system, 'SF Pro Text', system-ui, Helvetica, Arial, sans-serif">
-<text x="20" y="478" font-family="ui-rounded, 'SF Pro Rounded', -apple-system, system-ui, sans-serif" font-size="15" font-weight="600" fill="#faf7f0">10:12</text>
-<text x="66" y="478" font-size="15" font-weight="600" fill="#faf7f0">First</text>
-<text x="108" y="478" font-size="15" fill="#aab4c8">+3.1 km</text>
-<path d="M176 466c-4 0-6.5 3-6.5 6.2 0 4.2 6.5 9.8 6.5 9.8s6.5-5.6 6.5-9.8c0-3.2-2.5-6.2-6.5-6.2z" fill="#f0c26b"/>
-<circle cx="176" cy="472.5" r="2.2" fill="#16203a"/>
-</g>
-<clipPath id="tr-shot-med"><rect x="20" y="494" width="350" height="233" rx="16"/></clipPath>
-<g clip-path="url(#tr-shot-med)">
-<rect x="20" y="494" width="350" height="233" fill="#9cc0de"/>
-<path d="M20 600L80 552L130 580L200 530L260 572L320 548L370 578V727H20Z" fill="#a8b6c6"/>
-<path d="M20 640L90 616L170 630L250 610L330 628L370 620V727H20Z" fill="#5f7f8f"/>
-<rect x="20" y="650" width="350" height="77" fill="#3f7fa6"/>
-<path d="M20 650L80 690L130 670L200 706L260 676L320 694L370 672V650Z" fill="#a8b6c6" fill-opacity="0.35"/>
-</g>
-<text x="20" y="758" font-family="'New York', ui-serif, Newsreader, Georgia, serif" font-size="17" font-style="italic" fill="#faf7f0">Bachalpsee, still as glass.</text>
-<rect x="20" y="776" width="112" height="68" rx="10" fill="#7d8ea3"/>
-<rect x="139" y="776" width="112" height="68" rx="10" fill="#8aa06a"/>
-<rect x="258" y="776" width="112" height="68" rx="10" fill="#24324e"/>
-<text x="314" y="818" text-anchor="middle" font-family="ui-rounded, 'SF Pro Rounded', -apple-system, system-ui, sans-serif" font-size="20" font-weight="600" fill="#faf7f0">+6</text>
-</svg></figure>
-        <figure class="shot"><svg viewBox="0 0 390 844" width="390" height="844" role="img" aria-label="Recording a motorcycle ride: live speed 84 km per hour, 61.2 km and 1 hour 12 minutes so far">
-<rect width="390" height="844" fill="#121a2b"/>
-<rect width="390" height="420" fill="#16203a"/>
-<path d="M260 0H390V180C350 200 300 160 280 120S250 30 260 0Z" fill="#14294a"/>
-<g fill="none" stroke="#24324f" stroke-width="1.5"><ellipse cx="110" cy="250" rx="50" ry="32"/><ellipse cx="110" cy="250" rx="100" ry="66"/><ellipse cx="110" cy="250" rx="150" ry="100"/></g>
-<g fill="none" stroke="#2b3a58" stroke-linecap="round"><path d="M0 330C100 310 200 350 390 300" stroke-width="6"/><path d="M200 420C210 330 180 250 230 160" stroke-width="4"/></g>
-<path d="M40 400C80 360 120 350 150 300S200 230 220 210" fill="none" stroke="#0c1220" stroke-width="10" stroke-linecap="round"/>
-<path d="M40 400C80 360 120 350 150 300S200 230 220 210" fill="none" stroke="#f0c26b" stroke-width="5" stroke-linecap="round"/>
-<circle cx="220" cy="210" r="18" fill="#6cb4ff" fill-opacity="0.2"/>
-<circle cx="220" cy="210" r="8" fill="#6cb4ff" stroke="#faf7f0" stroke-width="3"/>
-<rect x="16" y="56" width="132" height="34" rx="17" fill="#ee6b4d"/>
-<circle cx="34" cy="73" r="5" fill="#ffffff"/>
-<text x="46" y="78.5" font-family="ui-rounded, 'SF Pro Rounded', -apple-system, system-ui, sans-serif" font-size="15" font-weight="700" fill="#ffffff">REC 1:12:05</text>
-<rect x="250" y="56" width="124" height="34" rx="17" fill="#1b263d" fill-opacity="0.82"/>
-<text x="312" y="78.5" text-anchor="middle" font-family="-apple-system, 'SF Pro Text', system-ui, Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#faf7f0">Motorcycle</text>
-<rect x="20" y="440" width="350" height="190" rx="16" fill="#0c1220"/>
-<text x="36" y="468" font-family="-apple-system, 'SF Pro Text', system-ui, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" letter-spacing="0.8" fill="#aab4c8">SPEED</text>
-<text x="180" y="590" text-anchor="middle" font-family="ui-rounded, 'SF Pro Rounded', -apple-system, system-ui, sans-serif" font-size="128" font-weight="600" fill="#f0c26b" letter-spacing="-2">84</text>
-<text x="300" y="590" font-family="-apple-system, 'SF Pro Text', system-ui, Helvetica, Arial, sans-serif" font-size="20" font-weight="700" fill="#f0c26b">km/h</text>
-<g font-family="ui-rounded, 'SF Pro Rounded', -apple-system, system-ui, sans-serif">
-<text x="20" y="664" font-family="-apple-system, 'SF Pro Text', system-ui, Helvetica, Arial, sans-serif" font-size="13" fill="#aab4c8">Distance</text>
-<text x="20" y="692" font-size="24" font-weight="600" fill="#faf7f0">61.2<tspan font-size="15" font-weight="500" fill="#aab4c8"> km</tspan></text>
-<text x="146" y="664" font-family="-apple-system, 'SF Pro Text', system-ui, Helvetica, Arial, sans-serif" font-size="13" fill="#aab4c8">Moving</text>
-<text x="146" y="692" font-size="24" font-weight="600" fill="#faf7f0">1:04<tspan font-size="15" font-weight="500" fill="#aab4c8"> h</tspan></text>
-<text x="266" y="664" font-family="-apple-system, 'SF Pro Text', system-ui, Helvetica, Arial, sans-serif" font-size="13" fill="#aab4c8">Altitude</text>
-<text x="266" y="692" font-size="24" font-weight="600" fill="#faf7f0">1,184<tspan font-size="15" font-weight="500" fill="#aab4c8"> m</tspan></text>
-</g>
-<circle cx="179" cy="728" r="5" fill="#f0c26b"/><circle cx="195" cy="728" r="4" fill="#6b7ca2"/><circle cx="211" cy="728" r="4" fill="#6b7ca2"/>
-<rect x="40" y="752" width="310" height="76" rx="38" fill="#1b263d"/>
-<circle cx="88" cy="790" r="24" fill="#24324e"/>
-<path d="M80 798V782H96V792L90 798Z M90 798V792H96" fill="none" stroke="#faf7f0" stroke-width="2" stroke-linejoin="round"/>
-<circle cx="195" cy="790" r="44" fill="#ee6b4d" fill-opacity="0.22"/>
-<circle cx="195" cy="790" r="34" fill="#ee6b4d"/>
-<rect x="183" y="776" width="8" height="28" rx="2.5" fill="#ffffff"/>
-<rect x="199" y="776" width="8" height="28" rx="2.5" fill="#ffffff"/>
-<circle cx="302" cy="790" r="24" fill="#24324e"/>
-<rect x="293" y="781" width="18" height="18" rx="4" fill="#faf7f0"/>
-</svg></figure>
+          <figure class="shot"><img src="images/screenshots/01-recording-live-map.jpg" width="390" height="844" alt="Recording a hike on the live map: the route so far, nearby places, and pause, discard and finish controls" decoding="async"></figure>
+          <figure class="shot"><img src="images/screenshots/02-recording-speedometer.jpg" width="390" height="844" alt="Recording with the analogue speedometer widget, showing live speed and distance so far" decoding="async"></figure>
+          <figure class="shot"><img src="images/screenshots/03-trips-list.jpg" width="390" height="844" alt="Trips list filtered to starred trips, each with a route thumbnail, distance and time" decoding="async"></figure>
+          <figure class="shot"><img src="images/screenshots/04-trip-detail-map.jpg" width="390" height="844" alt="Trip page for the Toronto Loop hike: the route on the map with start and finish, and the trip's info panel" decoding="async"></figure>
+          <figure class="shot"><img src="images/screenshots/05-trip-photos-on-map.jpg" width="390" height="844" alt="A trip's photos pinned where they were taken on the map, with a sheet of 12 photos and videos" decoding="async"></figure>
+          <figure class="shot"><img src="images/screenshots/06-trip-video-setup.jpg" width="390" height="844" alt="Setting up a trip video: format, length, quality, route marker and which notes appear along the route" decoding="async"></figure>
+          <figure class="shot"><img src="images/screenshots/07-stats.jpg" width="390" height="844" alt="Lifetime stats: total distance, trips, time out there and elevation gain, plus the northernmost and southernmost points reached" decoding="async"></figure>
         </div>
       </div>
       <div class="carousel-controls">
-        <button class="carousel-toggle" type="button" id="carousel-toggle" aria-pressed="false">Pause</button>
+        <button class="carousel-toggle" type="button" id="carousel-toggle">Pause</button>
       </div>
     </section>
 
@@ -412,8 +286,12 @@
       <h2 id="status">Status</h2>
       <div class="status">
         <svg class="flag" width="18" height="22" viewBox="0 0 18 22" aria-hidden="true"><path d="M2 1v20" stroke="var(--ink-muted)" stroke-width="2" stroke-linecap="round"/><path d="M3 1h13l-3 4 3 4H3z" fill="var(--coral)"/></svg>
-        <p style="margin:0"><b>Coming soon to the App Store.</b> Traceata is in final testing.
-        When it ships, it ships finished: one price, every feature, no subscription.</p>
+        <p style="margin:0"><b>Coming soon to the App Store.</b> Traceata is in final testing. It will be a free
+        download with a free trial of 14 days or 5 trips, whichever comes first, and no payment details
+        needed. After that, one payment of $7.99 (US price) unlocks everything, with no subscription,
+        and you can share it with your family. Until you unlock, older trips stay locked, and once the
+        trial ends no new trips can be added. Nothing is ever deleted, and you can always back up your
+        trips.</p>
       </div>
     </section>
 
@@ -436,54 +314,163 @@
 </div>
 <script>
 (function(){
+  var root=document.getElementById('carousel');
   var track=document.getElementById('track');
   var toggle=document.getElementById('carousel-toggle');
-  if(!track||!toggle) return;
-  var originals=Array.prototype.slice.call(track.children);
+  if(!root||!track||!toggle) return;
+
+  // One decorative copy of every screenshot, so the loop never shows a gap while it wraps.
+  var originals=Array.prototype.slice.call(track.children), N=originals.length;
   originals.forEach(function(el){
     var copy=el.cloneNode(true);
     copy.setAttribute('aria-hidden','true');
-    var svg=copy.querySelector('svg');
-    if(svg){svg.removeAttribute('role');svg.removeAttribute('aria-label');}
+    var img=copy.querySelector('img'); if(img) img.alt='';
     track.appendChild(copy);
   });
-  var items=Array.prototype.slice.call(track.children);
-  var K=items.length, MOVE=700, HOLD=500, GAP=28;
-  var step=0, timer=null;
-  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var playing=!reduce;
+  var items=Array.prototype.slice.call(track.children), K=items.length;
 
-  function layout(animate){
-    var w=items[0].offsetWidth, c=track.clientWidth/2;
+  var GAP=28, MOVE=1400, HOLD=2600, SNAP=420, IDLE=10000;
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)');
+  var pos=0;                       // centred slide as a continuous index; auto-play increases it (strip moves right to left)
+  var anim=null, raf=0, holdTimer=0, idleTimer=0, wheelTimer=0, drag=null;
+  var userPaused=reduce.matches;   // the Pause button (or reduced motion) stops auto-play until Play is pressed
+  var interacting=false;           // a swipe, drag, scroll or key press holds auto-play for IDLE ms
+
+  function mod(a,n){return ((a%n)+n)%n;}
+  function offset(i){return mod(i-pos+K/2,K)-K/2;}
+  function pitch(){return items[0].offsetWidth+GAP;}
+  function easeInOut(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;}
+  function easeOut(t){return 1-Math.pow(1-t,3);}
+
+  function render(){
+    var w=items[0].offsetWidth, c=track.clientWidth/2, p=w+GAP, current=mod(Math.round(pos),N);
     items.forEach(function(el,i){
-      var off=(i+step)%K; if(off>K/2) off-=K;
-      var x=c+off*(w+GAP)-w/2;
-      var wrapped=off===-(K/2-1);
-      el.style.transition=(animate&&!wrapped)?'transform '+MOVE+'ms cubic-bezier(.4,0,.2,1)':'none';
-      el.style.transform='translateX('+x+'px) scale('+(off===0?1:.92)+')';
-      el.classList.toggle('active',off===0);
+      var off=offset(i), near=Math.min(Math.abs(off),1);
+      el.style.transform='translateX('+(c+off*p-w/2)+'px) scale('+(1-.08*near)+')';
+      el.classList.toggle('active',Math.abs(off)<.5);
       el.classList.toggle('left',off<0);
-      if(i<originals.length) el.setAttribute('aria-hidden',off===0?'false':'true');
+      if(i<N) el.setAttribute('aria-hidden',i===current?'false':'true');
     });
   }
-  function schedule(){
-    clearTimeout(timer);
-    if(!playing) return;
-    timer=setTimeout(function(){step=(step+1)%K;layout(true);schedule();},MOVE+HOLD);
+
+  function animateTo(to,dur,ease,done){
+    cancelAnimationFrame(raf);
+    if(dur<=0||reduce.matches){pos=mod(to,K);anim=null;render();if(done) done();return;}
+    anim={from:pos,to:to,start:performance.now(),dur:dur,ease:ease,done:done};
+    raf=requestAnimationFrame(tick);
   }
-  function setPlaying(on){
-    playing=on;
-    toggle.textContent=on?'Pause':'Play';
-    toggle.setAttribute('aria-pressed',on?'false':'true');
-    schedule();
+  function tick(now){
+    if(!anim) return;
+    var t=Math.min((now-anim.start)/anim.dur,1);
+    pos=anim.from+(anim.to-anim.from)*anim.ease(t);
+    render();
+    if(t<1){raf=requestAnimationFrame(tick);return;}
+    var done=anim.done; anim=null; pos=mod(pos,K);
+    if(done) done();
   }
-  toggle.addEventListener('click',function(){setPlaying(!playing);});
-  document.addEventListener('visibilitychange',function(){
-    if(document.hidden) clearTimeout(timer); else schedule();
+  function snap(to){animateTo(to,SNAP,easeOut);}
+  function stop(){cancelAnimationFrame(raf);anim=null;clearTimeout(holdTimer);}
+
+  function canAuto(){return !userPaused&&!interacting&&!document.hidden;}
+  function scheduleAuto(delay){
+    clearTimeout(holdTimer);
+    if(!canAuto()) return;
+    holdTimer=setTimeout(function(){
+      if(canAuto()) animateTo(Math.round(pos)+1,MOVE,easeInOut,function(){scheduleAuto(HOLD);});
+    },delay);
+  }
+  // The user takes over: freeze where the strip is now, and restart the idle countdown.
+  function takeOver(){interacting=true;stop();clearTimeout(idleTimer);}
+  function releaseSoon(){
+    clearTimeout(idleTimer);
+    idleTimer=setTimeout(function(){interacting=false;scheduleAuto(0);},IDLE);
+  }
+
+  // Swipe (touch) and drag (mouse / pen). Vertical swipes are left to the page (touch-action: pan-y).
+  root.addEventListener('pointerdown',function(e){
+    if(e.pointerType==='mouse'&&e.button!==0) return;
+    drag={id:e.pointerId,x:e.clientX,y:e.clientY,active:false,samples:[]};
+    if(e.pointerType==='mouse'){e.preventDefault();root.focus({preventScroll:true});}
   });
-  window.addEventListener('resize',function(){layout(false);});
-  layout(false);
-  setPlaying(playing);
+  root.addEventListener('pointermove',function(e){
+    if(!drag||e.pointerId!==drag.id) return;
+    if(!drag.active){
+      var dx=e.clientX-drag.x, dy=e.clientY-drag.y;
+      if(Math.abs(dx)<6||Math.abs(dx)<Math.abs(dy)) return;
+      takeOver();
+      drag.active=true; drag.x=e.clientX; drag.start=pos;
+      try{root.setPointerCapture(e.pointerId);}catch(_){}
+      root.classList.add('dragging');
+    }
+    pos=drag.start-(e.clientX-drag.x)/pitch();
+    render();
+    drag.samples.push({t:e.timeStamp,x:e.clientX});
+    while(drag.samples.length>2&&e.timeStamp-drag.samples[0].t>100) drag.samples.shift();
+  });
+  function endDrag(e,cancelled){
+    if(!drag||e.pointerId!==drag.id) return;
+    var d=drag; drag=null;
+    root.classList.remove('dragging');
+    if(d.active){
+      var s=d.samples, v=0;
+      if(!cancelled&&s.length>1){var dt=s[s.length-1].t-s[0].t; if(dt>0) v=(s[s.length-1].x-s[0].x)/dt;}
+      var target=Math.round(pos-v*180/pitch()), base=Math.round(d.start);
+      snap(Math.max(base-2,Math.min(base+2,target)));
+      releaseSoon();
+    }else if(!cancelled){
+      // A tap on a side screenshot brings it to the centre.
+      var shot=e.target.closest&&e.target.closest('.shot');
+      if(!shot) return;
+      var off=offset(items.indexOf(shot));
+      if(Math.abs(off)>=.5){takeOver();snap(Math.round(pos+off));releaseSoon();}
+    }
+  }
+  root.addEventListener('pointerup',function(e){endDrag(e,false);});
+  root.addEventListener('pointercancel',function(e){endDrag(e,true);});
+
+  // Trackpad two-finger swipe, or Shift + mouse wheel. Vertical wheel still scrolls the page.
+  root.addEventListener('wheel',function(e){
+    var dx=e.deltaX;
+    if(!dx&&e.shiftKey) dx=e.deltaY;
+    else if(Math.abs(dx)<=Math.abs(e.deltaY)) return;
+    if(!dx) return;
+    e.preventDefault();
+    if(e.deltaMode===1) dx*=16; else if(e.deltaMode===2) dx*=pitch();
+    takeOver();
+    pos+=dx/pitch();
+    render();
+    clearTimeout(wheelTimer);
+    wheelTimer=setTimeout(function(){snap(Math.round(pos));releaseSoon();},140);
+  },{passive:false});
+
+  root.addEventListener('keydown',function(e){
+    var step=e.key==='ArrowRight'?1:e.key==='ArrowLeft'?-1:0;
+    if(!step) return;
+    e.preventDefault();
+    var base=Math.round(anim&&interacting?anim.to:pos);
+    takeOver();
+    animateTo(base+step,SNAP*1.4,easeInOut);
+    releaseSoon();
+  });
+
+  function updateToggle(){toggle.textContent=userPaused?'Play':'Pause';}
+  toggle.addEventListener('click',function(){
+    userPaused=!userPaused;
+    updateToggle();
+    clearTimeout(idleTimer);
+    interacting=false;
+    if(userPaused){stop();snap(Math.round(pos));}
+    else scheduleAuto(0);
+  });
+  document.addEventListener('visibilitychange',function(){
+    if(document.hidden){stop();pos=Math.round(pos);render();}
+    else scheduleAuto(HOLD);
+  });
+  window.addEventListener('resize',render);
+
+  render();
+  updateToggle();
+  scheduleAuto(HOLD);
 })();
 </script>
 </body>
