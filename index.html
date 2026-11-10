@@ -8,6 +8,10 @@
 <meta name="color-scheme" content="dark light">
 <meta name="theme-color" content="#121a2b" media="(prefers-color-scheme: dark)">
 <meta name="theme-color" content="#f3eee3" media="(prefers-color-scheme: light)">
+<link rel="icon" href="favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&display=swap">
@@ -111,17 +115,20 @@
      Swipe, drag, trackpad-scroll or arrow keys take over; auto-play resumes after 10 s idle. */
   body{overflow-x:clip}
   .shots h2{margin-bottom:22px}
-  .carousel{position:relative;width:100vw;margin-left:calc(50% - 50vw);overflow:hidden;--shot-w:clamp(210px, 58vw, 260px);height:calc(var(--shot-w) * 844 / 390 + 8px);
+  .carousel{position:relative;width:100vw;margin-left:calc(50% - 50vw);overflow:hidden;--shot-w:clamp(210px, 58vw, 260px);height:calc(var(--shot-w) * 844 / 390 + 80px);
     touch-action:pan-y;overscroll-behavior-x:contain;cursor:grab;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent;outline:none}
   .carousel.dragging{cursor:grabbing}
   .carousel:focus-visible .shot.active{outline:2px solid var(--focus-ring);outline-offset:3px}
   .track{position:absolute;inset:0}
-  .shot{position:absolute;top:0;left:0;margin:0;width:var(--shot-w);aspect-ratio:390/844;border-radius:32px;overflow:hidden;background:var(--surface);box-shadow:var(--shadow-card);transform-origin:50% 50%;will-change:transform}
-  .shot img{display:block;width:100%;height:100%;object-fit:cover;pointer-events:none;-webkit-user-drag:none}
-  .shot::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:1;transition:opacity .7s ease;
+  .shot{position:absolute;top:0;left:0;margin:0;width:var(--shot-w);aspect-ratio:390/844;border-radius:32px;background:var(--surface);box-shadow:var(--shadow-card);transform-origin:50% 50%;will-change:transform}
+  .shot img{display:block;width:100%;height:100%;object-fit:cover;border-radius:32px;pointer-events:none;-webkit-user-drag:none}
+  .shot::after{content:"";position:absolute;inset:0;border-radius:32px;pointer-events:none;opacity:1;transition:opacity .7s ease;
     background:linear-gradient(to right, color-mix(in srgb, var(--bg) 40%, transparent), color-mix(in srgb, var(--bg) 92%, transparent))}
   .shot.left::after{background:linear-gradient(to left, color-mix(in srgb, var(--bg) 40%, transparent), color-mix(in srgb, var(--bg) 92%, transparent))}
   .shot.active::after{opacity:0}
+  .shot-link{position:absolute;top:calc(100% + 16px);left:50%;transform:translateX(-50%);white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .5s ease,background-color .15s ease}
+  .shot-link:active{transform:translateX(-50%) scale(.97)}
+  .shot.active .shot-link{opacity:1;pointer-events:auto}
   .carousel-controls{display:flex;justify-content:center;margin-top:18px}
   .carousel-toggle{min-height:44px;padding:0 18px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink-muted);font:600 15px/20px var(--font-sans);cursor:pointer;display:inline-flex;align-items:center;gap:8px}
   .carousel-toggle:hover{color:var(--ink)}
@@ -295,10 +302,8 @@
       <div class="carousel" id="carousel" role="region" aria-roledescription="carousel" aria-label="Traceata screenshots. Use the left and right arrow keys to move between them." tabindex="0">
         <div class="track" id="track">
           <figure class="shot"><img src="images/screenshots/01-recording-live-map.jpg?v=20261109" width="390" height="844" alt="Recording a hike on the live map: the route so far, elapsed time and distance, and the Finish and Add note controls" decoding="async"></figure>
-          <figure class="shot"><img src="images/screenshots/02-recording-speedometer.jpg?v=20261109" width="390" height="844" alt="Recording with the analogue speedometer widget, showing live speed and distance so far" decoding="async"></figure>
           <figure class="shot"><img src="images/screenshots/03-trips-list.jpg?v=20261109" width="390" height="844" alt="Trips list filtered to starred trips, with a route thumbnail, distance and time" decoding="async"></figure>
-          <figure class="shot"><img src="images/screenshots/04-trip-detail-map.jpg?v=20261109" width="390" height="844" alt="Trip page for the Zurich loop 24 hike: the route on the map with start and finish, and the trip's info panel" decoding="async"></figure>
-          <figure class="shot"><img src="images/screenshots/05-trip-photos-on-map.jpg?v=20261109" width="390" height="844" alt="A trip's photos pinned where they were taken on the map, grouped with counts, and a sheet showing one group's photos" decoding="async"></figure>
+          <figure class="shot"><img src="images/story/uyuni-1-map.jpg?v=20261110" width="591" height="1280" alt="A trip page for a 2016 Salar de Uyuni road trip: the route across the salt flat with the trip's photos pinned where they were taken" decoding="async"><a class="btn shot-link" href="trip-memories.html">How it works</a></figure>
           <figure class="shot"><img src="images/screenshots/06-trip-video-setup.jpg?v=20261109" width="390" height="844" alt="Setting up a trip video: format, length, quality, route marker and which notes and photos appear along the route" decoding="async"></figure>
           <figure class="shot"><img src="images/screenshots/07-stats.jpg?v=20261109" width="390" height="844" alt="Stats for the month: total distance, trips and time out there, a monthly bar chart, and the northernmost and southernmost points reached" decoding="async"></figure>
         </div>
@@ -351,11 +356,12 @@
     var copy=el.cloneNode(true);
     copy.setAttribute('aria-hidden','true');
     var img=copy.querySelector('img'); if(img) img.alt='';
+    Array.prototype.forEach.call(copy.querySelectorAll('a'),function(a){a.tabIndex=-1;});
     track.appendChild(copy);
   });
   var items=Array.prototype.slice.call(track.children), K=items.length;
 
-  var GAP=28, MOVE=1400, HOLD=2600, SNAP=420, IDLE=10000;
+  var GAP=28, MOVE=1400, HOLD=5000, SNAP=420, IDLE=10000;
   var reduce=window.matchMedia('(prefers-reduced-motion: reduce)');
   var pos=0;                       // centred slide as a continuous index; auto-play increases it (strip moves right to left)
   var anim=null, raf=0, holdTimer=0, idleTimer=0, wheelTimer=0, drag=null;
@@ -376,6 +382,7 @@
       el.classList.toggle('active',Math.abs(off)<.5);
       el.classList.toggle('left',off<0);
       if(i<N) el.setAttribute('aria-hidden',i===current?'false':'true');
+      var link=el.querySelector('a'); if(link) link.tabIndex=(i===current)?0:-1;
     });
   }
 
