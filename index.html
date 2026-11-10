@@ -78,6 +78,9 @@
   .promise p{margin:0 0 12px;max-width:62ch}
   .promise p:last-child{margin:0}
   .lead{font-family:var(--font-serif);font-size:24px;line-height:1.35;color:var(--ink)}
+  .story{display:grid;grid-template-columns:180px minmax(0,1fr);gap:28px;align-items:center;background:var(--surface);border-radius:var(--radius-md);padding:24px;box-shadow:var(--shadow-card)}
+  .story p{margin:0 0 12px;max-width:62ch}
+  .story-shot img{display:block;width:100%;height:auto;aspect-ratio:591/1280;object-fit:cover;border-radius:24px;box-shadow:var(--shadow-card)}
   .status{display:flex;gap:14px;align-items:flex-start;border:1px dashed var(--line-strong);border-radius:var(--radius-md);padding:20px 24px;color:var(--ink-muted)}
   .status b{color:var(--ink)}
   .flag{flex:none;margin-top:3px}
@@ -96,6 +99,12 @@
     .hero{grid-template-columns:1fr;gap:28px;padding-top:36px}
     .art{max-width:420px}
     .grid{grid-template-columns:1fr}
+    .story{grid-template-columns:120px minmax(0,1fr);gap:18px;padding:18px}
+    .story .lead{font-size:20px}
+  }
+  @media (max-width:480px){
+    .story{grid-template-columns:1fr}
+    .story-shot{max-width:200px}
   }
 
   /* Screenshot carousel: drifts right to left, holds each screenshot, fogs the side ones.
@@ -125,6 +134,7 @@
     <nav aria-label="Main">
       <a class="brand" href="index.html">Traceata</a>
       <div class="navlinks">
+        <a href="trip-memories.html">Trip story</a>
         <a href="privacy.html">Privacy</a>
         <a href="#support">Support</a>
       </div>
@@ -264,6 +274,21 @@
       </div>
     </section>
 
+    <section aria-labelledby="memory">
+      <h2 id="memory">Relive it, years later</h2>
+      <div class="story">
+        <a class="story-shot" href="trip-memories.html" tabindex="-1" aria-hidden="true"><img src="images/story/uyuni-1-map.jpg?v=20261110" width="591" height="1280" alt="" loading="lazy" decoding="async"></a>
+        <div>
+          <p class="lead">Ten years on, we still walk through our Salar de Uyuni road trip.</p>
+          <p>The route across the salt, 393 photos pinned right where we took them, the stats, even a
+          note we left ourselves. We recorded it back in 2016, imported it into Traceata, and it all came
+          back together. Share it as a photo set, or just enjoy it on your own.</p>
+          <p>Your trips can look like this too. Try it with one of yours.</p>
+          <p style="margin-top:18px"><a class="btn" href="trip-memories.html">Read our trip story</a></p>
+        </div>
+      </div>
+    </section>
+
     <section class="shots" aria-labelledby="shotsh">
       <h2 id="shotsh">What a trip looks like</h2>
       <div class="carousel" id="carousel" role="region" aria-roledescription="carousel" aria-label="Traceata screenshots. Use the left and right arrow keys to move between them." tabindex="0">
@@ -309,7 +334,7 @@
 
   <footer>
     <div>© 2026 Traceata</div>
-    <div><a href="privacy.html">Privacy Policy</a> &nbsp;·&nbsp; <a href="mailto:support@traceata.com">Support</a></div>
+    <div><a href="trip-memories.html">Trip story</a> &nbsp;·&nbsp; <a href="privacy.html">Privacy Policy</a> &nbsp;·&nbsp; <a href="mailto:support@traceata.com">Support</a></div>
   </footer>
 </div>
 <script>
